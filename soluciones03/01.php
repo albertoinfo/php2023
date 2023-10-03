@@ -8,7 +8,7 @@
        return $tablaResu;
    }
      
-   // Equivale la funcion max($array) de la libreria PHP
+   // Equivale a la funcion max($array) de la libreria PHP
    function valorMaximo ($tabla) {
         $valor = $tabla[0];
         for ($i = 0; $i < count($tabla); $i++) {
@@ -18,7 +18,7 @@
         }
         return $valor;
     }
-    // Equivale la funcion min($array) de la librería PHP
+    // Equivale a la funcion min($array) de la librería PHP
     function valorMinimo ($tabla) {
         $valor = $tabla[0];
         for ($i = 0; $i < count($tabla); $i++) {
@@ -36,7 +36,7 @@
         for ($i = 0; $i < count($tabla); $i++) {
             $veces = 0;
             // Anoto cuantas veces se repite el elemento $i
-            for ($j = 0; $j < count($tabla); $j++) {
+            for ($j = $i; $j < count($tabla); $j++) {
                 if ($tabla[$i] == $tabla[$j]) {
                     $veces++;
                 }    
@@ -80,14 +80,16 @@
 </head>
 <body>
     <!-- Muestro la tabla -->
+    <h2>Contenido de la tabla </h2>
+    <p>
     <table style='border: 1px solid black; border-collapse:collapse';>
     <tr>
     <?php for ($i = 0; $i<count($numeros);$i++): ?> 
-        <td style='border: 1px solid black; padding: 5px';><?=$numeros[$i] ?></td>";
+        <td style='border: 1px solid black; padding: 5px';><?=$numeros[$i] ?></td>
     <?php endfor ?>
     </tr>
     </table>
-    
+    </p>
     <br> Máximo = <?= $maximo ?>
     <br> Mínimo = <?= $minimo ?>
     <br> Moda   = <?= $repetido ?>

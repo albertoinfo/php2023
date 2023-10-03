@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Medio al azar</title>
-	<meta charset="utf-8">
-</head>
-<body>
-	<?php
+<?php
 	$medios =  [ "El Pais" => "https://www.elpais.com",
 	    "El Mundo" => "https://www.elmundo.es",
 	    "Marca" => "https://www.marca.com",
@@ -15,8 +8,18 @@
 	];
 	// Obtengo una clave de forma aleatoria
 	$clavemedio = array_rand($medios);
-	echo "<p>El Medio recomendado es: <a href=\"". $medios[$clavemedio]. "\">$clavemedio</a></p>";
-	?>
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Medio al azar</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	
+<p>
+El Medio recomendado es: <a href=" <?php $medios[$clavemedio] ?>" > <?= $clavemedio ?></a>
+</p>
 <hr>
 <?php show_source(__FILE__); ?>
 <hr>

@@ -1,3 +1,6 @@
+<?php
+include_once 'infopaises.php';
+?>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -8,12 +11,10 @@
 table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
+	padding: 5px;
 }
 </style>
 </head>
-<?php
-include_once 'infopaises.php';
-?>
 <body>
 <h1>Tabla de paises </h1>
 	<table>
