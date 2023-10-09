@@ -28,19 +28,19 @@ for ($i = 0; $i < count($meses); $i++) {
 <body>
     <h1> Tabla de temperaturas </h1>
     <table>
-        <?php for ($i = 0; $i < count($meses); $i++) : ?>
+        <?php foreach ($mestemperaturas as $nombremes => $tempmes) : ?>
             <tr>
-                <td> <?= $meses[$i]; ?></td>
+                <td> <?= $nombremes; ?></td>
                 <td>
                     <!-- Problema con la inclusión de salto de linea sin echo -->
-                    <?php for ($j = 0; $j < $mestemperaturas[$meses[$i]]; $j++) {
+                    <?php for ($j = 0; $j < $tempmes; $j++) {
                        echo "<img src='img/cuadro.png' style='width:2px;'>";
                     }
                     ?>
-                    <?= $mestemperaturas[$meses[$i]] ?> ºC
+                    <?= $tempmes?> ºC
                 </td>
             </tr>
-        <?php endfor ?>
+        <?php endforeach ?>
     </table>
     <hr>
     <?php show_source(__FILE__); ?>
