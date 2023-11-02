@@ -1,6 +1,7 @@
 
 <?php
 // CONTROLADOR CON CONTROL SESIONES
+// EVITA ATAQUES CSRF mediante un token
 //////////////////////////////////////
 
 session_start();
@@ -24,6 +25,8 @@ if (!isset($_SESSION['usuario'])) {
             // anoto en la sesión
             $_SESSION['usuario'] = $_REQUEST['nombre'];
             $msg = " Bienvenido <b>" . $_REQUEST['nombre'] . "</b><br>";
+            // Firma del formulario
+            $_SESSION['token'] = uniqid(mt_rand(), true);
             include_once  'app/comentario.php';
         } else {
             $msg = " <br> Usuario no válido </br>";
@@ -33,6 +36,14 @@ if (!isset($_SESSION['usuario'])) {
 } else {
     // IDENTIFICADO
     ///////////////////////////////////////
+     // Evito el ataque CSRF mediante token
+                
+     if (!isset($_REQUEST['token']) || $_REQUEST['token'] != $_SESSION['token']) {
+        echo " Intento de ataque.... ";
+        die();
+    }
+    $_SESSION['token'] = uniqid(mt_rand(), true);
+    // Genero un nuevo token por si hay que genera un formulario
     switch ($_REQUEST['orden']) {
 
         case "Nueva opinión":

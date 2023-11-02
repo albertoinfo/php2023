@@ -7,7 +7,7 @@ Tema<br>
 Comentario: <br>
 <textarea name="comentario" rows="4" cols="50"><?=(isset($_REQUEST['comentario']))?$_REQUEST['comentario']:''?></textarea>
 <br><br>
-<input type="hidden" name="token" value=" (isset($_SESSION['token']))? $_SESSION['token']:' '" >
+<input type="hidden" name="token" value="<?= (isset($_SESSION['token']))? $_SESSION['token']:' ' ?>" >
 <input type="submit" name="orden" value="Detalles">
 <input type="submit" name="orden" value="Nueva opinión">
 <input type="submit" name="orden" value="Terminar">
