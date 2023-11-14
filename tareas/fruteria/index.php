@@ -19,7 +19,7 @@ if (isset($_POST["accion"])) {
 
     if ($_POST["accion"] == " Anotar ") {
         $cantidad = $_POST['cantidad'];
-        $fruta = $_POST['fruta'];
+        $fruta    = $_POST['fruta'];
         // Evito cantidades negativas
         if ($cantidad > 0) {
             // Existe un pedido de fruta previo
