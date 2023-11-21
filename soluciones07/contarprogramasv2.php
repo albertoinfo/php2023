@@ -3,8 +3,11 @@
 // Devuelve true, si la cadena termina en final
 function endsWith($cadena, $final)
 {
-    $length = strlen($final);
-    return $length > 0 ? substr($cadena, -$length) === $final : true;
+
+    return str_ends_with($cadena, $final);
+
+    //$length = strlen($final);
+    // return $length > 0 ? substr($cadena, -$length) === $final : true;
 }
 
 

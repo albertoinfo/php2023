@@ -16,7 +16,8 @@ if (isset($_GET['fichero'])) {
         }
         $contenido .= "</pre></code>";
         $contenido .=" Número de líneas     = ".count($líneas)." <br>";
-        $contenido .= " Número de caracteres = $contcar <br>"; 
+        $contenido .=" Número de caracteres = $contcar <br>"; 
+        $contenido .=" Número de caracteres =". filesize($_GET['fichero'])."<br>";
         
     } else {
         $contenido = " Error : El fichero ".$_GET['fichero']." no existe o no tiene permisos de lectura.";
