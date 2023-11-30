@@ -3,14 +3,23 @@
 // Reordena indexa la tabla
 function accionBorrar ($id){    
      //<<<< COMPLETAR >>>>>>  
-    
-    $_SESSION['msg'] = "EL MÉTODO ".__FUNCTION__." NO  ESTA IMPLEMENTADO ";
+     
+     if ( $_SESSION['tuser'][$id]){
+        unset( $_SESSION['tuser'][$id]);   
+        $msg = " El usuario con login $id ha sido eliminado";   
+     } else {
+        $msg = " Error:El usuario con login $id no se encuentra.";
+     }
+     
+    $_SESSION['msg'] = $msg;
 }
 
 // Termina: Cierra sesión y vuelva los datos
 function accionTerminar(){
-        //<<<< COMPLETAR >>>>>>  
-       $_SESSION['msg'] = " EL MÉTODO ".__FUNCTION__." NO  ESTA IMPLEMENTADO ";
+       
+        volcarDatos($_SESSION['tuser']);
+        session_destroy();
+       $_SESSION['msg'] = "  Todos datos se han guardado ";
 }
  
 
@@ -18,8 +27,8 @@ function accionTerminar(){
 function accionDetalles($id){
     $login=$id;
     $usuario = $_SESSION['tuser'][$id];
-    $nombre  = $usuario[0];
-    $clave   = $usuario[1];
+    $clave  =   $usuario[0];
+    $nombre   = $usuario[1];
     $comentario=$usuario[2];
     $orden = "Detalles";
     include_once "layout/formulario.php";
@@ -28,12 +37,23 @@ function accionDetalles($id){
 
 // Muestra un el formularios con los datos permitiendo la modificación
 function accionModificar($id){
-        //<<<< COMPLETAR >>>>>>  
-    
-        $_SESSION['msg'] = " EL MÉTODO ".__FUNCTION__." NO  ESTA IMPLEMENTADO ";
+    $login=$id;
+    $usuario = $_SESSION['tuser'][$id];
+    $clave  = $usuario[0];
+    $nombre  = $usuario[1];
+    $comentario=$usuario[2];
+    $orden = "Modificar";
+    include_once "layout/formulario.php";
+    exit();  
 }
 
+function accionPostModificar() {
+    $id = $_POST['login'];
+    $nuevovalor = [ $_POST['clave'],$_POST['nombre'],$_POST['comentario']];
+    $_SESSION['tuser'][$id]= $nuevovalor;  
+    $_SESSION['msg'] = " Usuario con login $id actualizado";
 
+}
 
 
 // Muestra un el formulario con los datos vacios para realizar una alta
@@ -56,7 +76,7 @@ function accionPostAlta(){
     
     //<<<< COMPLETAR y CORREGIR>>>>>>
     $id = $_POST['login'];
-    $nuevo = [ $_POST['nombre'],$_POST['clave'],$_POST['comentario']];
+    $nuevo = [ $_POST['clave'],$_POST['nombre'],$_POST['comentario']];
     $_SESSION['tuser'][$id]= $nuevo;  
     $_SESSION['msg'] = " Nuevo usuario añadido.";
 }

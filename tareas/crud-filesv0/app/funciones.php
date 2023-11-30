@@ -41,7 +41,15 @@ function cargarDatostxt(): array
 //Vuelca los datos a un fichero de texto
 function volcarDatostxt(array $tvalores)
 {
-    // <<<<  IMPLEMENTAR  >>>>>   
+    $fich = @fopen(FILEUSER, 'w') or die("ERROR al abrir fichero de usuarios"); // abrimos el fichero para lectura
+
+    foreach ($tvalores as $login => $datos ){
+         $linea = $login.'|';
+         $linea .= implode ('|',$datos);
+         $linea .= "\n";
+         fputs($fich,$linea);
+    }
+    fclose($fich);
 
 }
 
@@ -50,15 +58,34 @@ function volcarDatostxt(array $tvalores)
 
 function cargarDatoscsv(): array
 {
-    // <<<<  IMPLEMENTAR  >>>>> 
+   
     $tabla = [];
+    if (!is_readable(FILEUSER)) {
+        // El directorio donde se crea tiene que tener permisos adecuados
+        $fich = @fopen(FILEUSER, "w") or die("Error al crear el fichero.");
+        fclose($fich);
+    }
+    $fich = @fopen(FILEUSER, 'r') or die("ERROR al abrir fichero de usuarios"); // abrimos el fichero para lectura
+
+    while ($partes = fgetcsv($fich)) {
+        $tabla[$partes[0]] = [ $partes[1], $partes[2], $partes[3]];
+    }
+    fclose($fich);
     return $tabla;
 }
 
 //Vuelca los datos a un fichero de csv
 function volcarDatoscsv(array $tvalores)
 {
-    // <<<<  IMPLEMENTAR  >>>>> 
+
+    $fich = @fopen(FILEUSER, 'w') or die("ERROR al abrir fichero de usuarios"); // abrimos el fichero para lectura
+
+    foreach ($tvalores as $login => $datos ){
+        // Añadir el login al principio
+         array_unshift($datos, $login);
+         fputcsv($fich,$datos);
+    }
+    fclose($fich);
 
 }
 
@@ -66,14 +93,19 @@ function volcarDatoscsv(array $tvalores)
 // FICHERO DE JSON
 function cargarDatosjson(): array
 {
-    // <<<<  IMPLEMENTAR  >>>>> 
-    $tabla = [];
-    return $tabla;
+     // Si no existe lo creo
+     $tabla=[];
+     $datosjson = @file_get_contents(FILEUSER) or die("ERROR al abrir fichero de usuarios");
+     $tabla = json_decode($datosjson, true);   
+     return $tabla;
 }
 
 function volcarDatosjson(array $tvalores)
 {
-    // <<<<  IMPLEMENTAR  >>>>> 
+     
+    $datosjon = json_encode($tvalores);
+    @file_put_contents(FILEUSER, $datosjon) or die ("Error al escribir en el fichero.");
+    
 
 
 }
