@@ -24,6 +24,7 @@ class Magic
         
     }
     
+
     public function __get($nombre){
         // Compruebo un atributo concreto
         if ( $nombre == "atributo1"){
