@@ -39,10 +39,10 @@ CREATE TABLE `Productos` (
 --
 
 INSERT INTO `Productos` (`id`, `nombre`, `stock`, `precio`) VALUES
-(200, 'Martillo', 10, 309458),
-(201, 'Maza', 3, 695448),
-(302, 'Tuercas 10 mm', 20, 550),
-(305, 'Tuercas 20 mm', 20, 55),
+(200, 'Martillo', 10, 30),
+(201, 'Maza', 3, 69),
+(302, 'Tuercas 10 mm', 20, 5),
+(305, 'Tuercas 20 mm', 20, 1),
 (309, 'Tuercas 10 mm', 20, 5.5),
 (315, 'Tuercas 20 mm', 20, 5.5);
 

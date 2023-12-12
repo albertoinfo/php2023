@@ -111,7 +111,7 @@ $stmt->execute();
 // Array con objetos anónimos clase por defecto 
 $stmt->setFetchMode(PDO::FETCH_OBJ);
 
-echo "<br> D ) Mediante un  objeto anónimo con clase por defecto  con fechALL<br>";
+echo "<br> D ) Mediante un  objeto anónimo con clase por defecto  con fetchaLL<br>";
 echo " <table border=1><tr><th>login</th><th>nombre</th><th>password</th><th>Comentario</th></tr>";
 
 // Obtengo una tabla con todos los datos;

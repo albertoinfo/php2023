@@ -2,6 +2,7 @@
 $response = $_POST["g-recaptcha-response"];
 
 if (!empty($response)) {
+    // Clave ID que me ha facilitado google 
     $secret = "6Ldpvq....";
     $ip = $_SERVER['REMOTE_ADDR'];
     $respuestaValidación = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response&remoteip=$ip");

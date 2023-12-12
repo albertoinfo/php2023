@@ -6,7 +6,7 @@ require_once "app/modelo/AccesoDatos.php";
 /* CONTROL DE ACCESO A UNA APLICACIÓN
 *  - Valida contra la base de datos
 *  - Cierra la sesión pasado 60 segundo sin volver a acceder
-*  - Bloquea el acceso tras más de tres fallos consecutivos
+*  - Bloquea el acceso tras más de tres fallos consecutivos del mismo usuario
 */
 
 session_start();
@@ -29,11 +29,13 @@ if (isset($_SESSION['Nombre']) &&  $_SERVER['REQUEST_METHOD'] == "GET") {
     $mensaje = " $_SESSION[Nombre] Bienvenido al sistema <br>";
     $mensaje .= " Has entrado $_SESSION[accesos] veces <br>";
     $_SESSION['timeout'] = time(); // Actualizo la temporización
+    // SE CARGA LA VISTA GENERAL DE LA APLICACIÓN
+    // Por ejemplo se carga una vista con los datos de la tabla Productos
     include_once 'app/vistas/vistaapp.php';
     exit();
 }
 
-// PROCESO FORMULARIO DE ENTRADA O SALIR
+// PROCESO FORMULARIO  ORDDEN  ENTRADA O SALIR
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -42,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         header("refresh:0");
         exit();
     }
+
+    // CONTROL DE ACCESO A LA APLICACIÓN 
 
     if ($_POST['orden'] == "Entrar") {
         $login  = $_POST['login'];
@@ -55,9 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($user->passwd == $passwd) {
                 unset($_SESSION['NombreError']); // No hay usuario con error
                 if ($user->bloqueo == 0) {
+                    // ACCESO CORRECTO 
                     $_SESSION['Nombre'] = $user->Nombre;
                     $_SESSION['accesos'] = $user->accesos;
                     $db->incrementarAccesos($user->login);
+                    // SE CARGA LA PÁGINA CON USUARIO IDENTIFICADO
                     header("refresh:0");
                 } else {
                     $mensaje = " Lo sentimos la cuenta $login está bloqueada ";
@@ -65,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 // Password incorrecto
             } else {
                 $mensaje = "El identificador y/o la contraseña no son correctos**.<br>";
-                // Si ha fallado en el mismo usuario 
+                // Si ha fallado en el mismo usuario incremento los accesos erroneos
                 if (isset($_SESSION['NombreError']) && $_SESSION['NombreError'] == $login) {
                     $_SESSION['errorPassword']++;
                     if ($_SESSION['errorPassword'] > 3) {
@@ -73,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $mensaje =  " la cuenta $login ha sido bloqueada pongase en contacto con el administrador.";
                     }
                 } else {
+                    // Usuario nuevo con error.
                     $_SESSION['NombreError'] = $login;
                     $_SESSION['errorPassword'] = 1;
                 }
@@ -80,4 +87,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
 }
+// VISTA DE ACCESO A LA APLICACIÓN 
 include_once 'app/vistas/vistaloginapp.php';

@@ -26,6 +26,7 @@
 					</tr>
 				</table>
 				<?php if ( isset($activarcaptcha ))  :?>
+				<!-- Se incluye la data-sitekey ofrecida por google --->
 				<div class="g-recaptcha" data-sitekey="6Ldpv......"></div>
 				<?php endif; ?>
 				<input type="submit" name="orden" value="Entrar">

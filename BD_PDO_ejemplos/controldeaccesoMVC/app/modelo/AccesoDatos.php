@@ -31,15 +31,20 @@ class AccesoDatos {
             $dsn = "mysql:host=localhost;dbname=Prueba";
             $this->dbh = new PDO($dsn, "root", "root");
             $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->dbh->setAttribute( PDO::ATTR_EMULATE_PREPARES, FALSE );
         } catch (PDOException $e){
             echo "Error de conexión ".$e->getMessage();
             exit();
         }
-       
-        $this->stmt_usuario     = $this->dbh->prepare("select * from Users where login=:login");
-        $this->stmt_incaccesos  = $this->dbh->prepare("update Users set accesos=accesos+1 where login=:login");
-        $this->stmt_bloquear    = $this->dbh->prepare("update Users set bloqueo=1 where login=:login");
-    
+        // Intento crear las sentencias
+        try {
+            $this->stmt_usuario     = $this->dbh->prepare("select * from Users where login=:login");
+            $this->stmt_incaccesos  = $this->dbh->prepare("update Users set accesos=accesos+1 where login=:login");
+            $this->stmt_bloquear    = $this->dbh->prepare("update Users set bloqueo=1 where login=:login");
+        } catch (PDOException $e){
+            echo " Error al crear la sentencia ".$e->getMessage();
+            exit();
+        }
     }
 
     // Cierro la conexión anulando todos los objectos relacioanado con la conexión PDO (stmt)
