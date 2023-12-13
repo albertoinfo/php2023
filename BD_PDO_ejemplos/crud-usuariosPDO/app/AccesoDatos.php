@@ -59,12 +59,15 @@ class AccesoDatos {
         
         // Ejecuto la sentencias 
         if ( $stmt_usuarios->execute() ){
+            //$tuser = $stmt_usuarios->fetchAll();
             // Mientra $user no sea false, sea un objeto
             while ( $user = $stmt_usuarios->fetch()){
                // añado ese objeto a la tabla
                $tuser[]= $user;
             }
         }
+        
+
         return $tuser;
     }
     
@@ -100,6 +103,7 @@ class AccesoDatos {
     //INSERT
     public function addUsuario($user):bool{
         $stmt_creauser  = $this->dbh->prepare("insert into Usuarios (login,nombre,password,comentario) Values(?,?,?,?)");
+        //$stmt_creauser->bindValue(1,$user->login);
         $stmt_creauser->execute( [$user->login, $user->nombre, $user->password, $user->comentario]);
         $resu = ($stmt_creauser->rowCount () == 1);
         return $resu;
