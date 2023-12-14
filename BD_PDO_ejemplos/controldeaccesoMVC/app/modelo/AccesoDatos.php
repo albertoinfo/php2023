@@ -1,6 +1,6 @@
 <?php
 include_once "User.php";
-
+include_once "Producto.php";
 /*
  * Acceso a datos con BD Usuarios y Patrón Singleton 
  * Un único objeto para la clase
@@ -63,9 +63,11 @@ class AccesoDatos {
     // Devuelvo todos los productos
 
     public function getProductos ():array{
-       $resu =[];
+       $resu = [];
        $this->stmt_productos->setFetchMode(PDO::FETCH_CLASS, 'Producto');
-       $resu = $this->stmt_productos->fetchAll();
+       if ($this->stmt_productos->execute() ){
+           $resu = $this->stmt_productos->fetchAll();
+       }
        return $resu;
     }
 

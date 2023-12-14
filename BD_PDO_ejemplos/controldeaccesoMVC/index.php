@@ -31,7 +31,9 @@ if (isset($_SESSION['Nombre']) &&  $_SERVER['REQUEST_METHOD'] == "GET") {
     $_SESSION['timeout'] = time(); // Actualizo la temporización
     // SE CARGA LA VISTA GENERAL DE LA APLICACIÓN
     // Por ejemplo se carga una vista con los datos de la tabla Productos
-    include_once 'app/vistas/vistaapp.php';
+    $db = AccesoDatos::getModelo();
+    $tproductos = $db->getProductos();
+    include_once 'app/vistas/vistaapp_pro.php';
     exit();
 }
 
