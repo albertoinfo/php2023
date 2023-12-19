@@ -24,7 +24,6 @@ echo "<br> Cuenta c1 su saldo es $c1->saldo";
 $c2->ingreso(100);
 $c2->anotarGastos(); // No se aplican pues su saldo es mayor que 1000
 $c2->anotarIntereses(5); // 5% de interes
-echo "<br> Cuenta c2 = ".$c2->consultarEstado();
 $c2->transferencia(100,$c3);
 echo "<br> Cuenta c2 = ".$c2->consultarEstado();
 
