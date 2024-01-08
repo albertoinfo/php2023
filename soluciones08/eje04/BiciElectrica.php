@@ -23,7 +23,7 @@ class BiciElectrica {
 
     function __toString()
     {
-        return $this->id." Bateria ".$this->bateria;
+        return $this->id." Bateria ".$this->bateria. " %";
     }
 
     function distancia ($x,$y):int{
