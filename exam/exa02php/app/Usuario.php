@@ -1,10 +1,14 @@
 <?php
 
-class Cliente {
-    
-    private $telefono;
+
+class Usuario
+{
     private $nombre;
-    private $puntos;
+    private $login;
+    private $password;
+    private $comentario;
+    private $bloqueo;
+    private $saldo;
     
     // Getter con método mágico
     public function __get($atributo){
@@ -12,13 +16,12 @@ class Cliente {
             return $this->$atributo;
         }
     }
-    // Setter con método mágioc
+    // Setter con método mágico
     public function __set($atributo,$valor){
         if(property_exists($this, $atributo)) {
             $this->$atributo = $valor;
         }
     }
     
-    
-    
 }
+
